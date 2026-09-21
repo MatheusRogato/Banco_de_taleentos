@@ -145,7 +145,6 @@ class DashboardScreen extends StatelessWidget {
                     const SizedBox(width: 12),
                   ],
                 ),
-                // Dashboard Content
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -153,25 +152,17 @@ class DashboardScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Availability Toggle Card
                         AvailabilityCard(isAvailable: profile.isAvailable),
                         const SizedBox(height: 20),
-
-                        // Search Status Banner (Green if available, gray if not)
                         _buildStatusBanner(context, profile.isAvailable),
                         const SizedBox(height: 20),
-
-                        // Stats Bento Grid (Dynamic Counts)
                         StatsGrid(
                           experiencesCount: profile.workExperiences.length,
                           coursesCount: profile.courses.length,
                         ),
                         const SizedBox(height: 28),
-
-                        // Career Journey Preview
                         JourneyPreview(profile: profile),
-                        const SizedBox(
-                            height: 80), // bottom padding for nav bar
+                        const SizedBox(height: 80),
                       ],
                     ),
                   ),

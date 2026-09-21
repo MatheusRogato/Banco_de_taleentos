@@ -53,7 +53,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> toggleAvailability(bool isAvailable) async {
     final currentState = state;
     if (currentState is ProfileLoaded) {
-      // Optimistic update of UI
       final updatedProfile =
           currentState.profile.copyWith(isAvailable: isAvailable);
       emit(ProfileLoaded(updatedProfile));
@@ -65,7 +64,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           emit(ProfileLoaded(currentState.profile));
           emit(ProfileError(failure.message));
         },
-        (_) => loadProfile(), // Refresh profile data
+        (_) => loadProfile(),
       );
     }
   }
@@ -182,7 +181,8 @@ class ProfileCubit extends Cubit<ProfileState> {
     result.fold(
       (failure) => emit(ProfileError(failure.message)),
       (url) {
-        emit(const ProfileActionSuccess('Currículo em PDF anexado e sincronizado com sucesso!'));
+        emit(const ProfileActionSuccess(
+            'Currículo em PDF anexado e sincronizado com sucesso!'));
         loadProfile();
       },
     );

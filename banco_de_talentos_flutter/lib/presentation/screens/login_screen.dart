@@ -130,8 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             const Spacer(flex: 2),
-
-                            // Glass Card for inputs
                             StaggeredWidget(
                               index: 3,
                               child: Container(
@@ -198,7 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     const SizedBox(height: 24),
-                                    // Primary Button inside the card
                                     AnimatedPrimaryButton(
                                       isLoading: state is AuthLoading,
                                       onPressed: () => _submit(context),

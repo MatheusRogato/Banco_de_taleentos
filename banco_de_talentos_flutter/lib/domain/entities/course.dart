@@ -5,7 +5,7 @@ class Course extends Equatable {
   final String profileId;
   final String name;
   final String institution;
-  final String status; // 'in_progress' or 'completed'
+  final String status;
   final String? certificateUrl;
 
   const Course({

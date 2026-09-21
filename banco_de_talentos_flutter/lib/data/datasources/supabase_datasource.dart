@@ -22,26 +22,22 @@ abstract class SupabaseDatasource {
 
   Future<void> signOut();
 
-  // Profile Methods
   Future<ProfileModel> getProfile(String userId);
   Future<void> updateProfileAvailability(String userId, bool isAvailable);
   Future<void> updateProfileSectors(String userId, List<int> sectorIds);
-  Future<void> updateProfileDetails(String userId, String fullName, String? phone, String city, String? bio);
+  Future<void> updateProfileDetails(
+      String userId, String fullName, String? phone, String city, String? bio);
 
-  // Work Experiences Methods
   Future<WorkExperienceModel> addWorkExperience(WorkExperienceModel experience);
   Future<void> updateWorkExperience(WorkExperienceModel experience);
   Future<void> deleteWorkExperience(String id);
 
-  // Courses & Certifications Methods
   Future<CourseModel> addCourse(CourseModel course, String? localFilePath);
   Future<void> updateCourse(CourseModel course, String? localFilePath);
   Future<void> deleteCourse(String id);
 
-  // Sectors Methods
   Future<List<SectorModel>> getSectors();
 
-  // Resume Upload Method
   Future<String> uploadResume(String userId, dynamic fileInput);
 }
 
@@ -86,10 +82,10 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
 
   @override
   Future<ProfileModel> getProfile(String userId) async {
-    // Fetch profile with experiences, courses and sectors
     final response = await supabase
         .from('profiles')
-        .select('*, work_experiences(*), courses(*), profile_sectors(sectors(*))')
+        .select(
+            '*, work_experiences(*), courses(*), profile_sectors(sectors(*))')
         .eq('id', userId)
         .single();
 
@@ -97,36 +93,29 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
   }
 
   @override
-  Future<void> updateProfileAvailability(String userId, bool isAvailable) async {
+  Future<void> updateProfileAvailability(
+      String userId, bool isAvailable) async {
     await supabase
         .from('profiles')
-        .update({'is_available': isAvailable})
-        .eq('id', userId);
+        .update({'is_available': isAvailable}).eq('id', userId);
   }
 
   @override
-  Future<void> updateProfileDetails(String userId, String fullName, String? phone, String city, String? bio) async {
-    await supabase
-        .from('profiles')
-        .update({
-          'full_name': fullName,
-          'phone': phone,
-          'city': city,
-          'bio': bio,
-        })
-        .eq('id', userId);
+  Future<void> updateProfileDetails(String userId, String fullName,
+      String? phone, String city, String? bio) async {
+    await supabase.from('profiles').update({
+      'full_name': fullName,
+      'phone': phone,
+      'city': city,
+      'bio': bio,
+    }).eq('id', userId);
   }
 
   @override
   Future<void> updateProfileSectors(String userId, List<int> sectorIds) async {
-    // Delete existing profile sectors
-    await supabase
-        .from('profile_sectors')
-        .delete()
-        .eq('profile_id', userId);
+    await supabase.from('profile_sectors').delete().eq('profile_id', userId);
 
     if (sectorIds.isNotEmpty) {
-      // Insert new profile sectors
       final insertData = sectorIds
           .map((sectorId) => {
                 'profile_id': userId,
@@ -139,13 +128,14 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
   }
 
   @override
-  Future<WorkExperienceModel> addWorkExperience(WorkExperienceModel experience) async {
+  Future<WorkExperienceModel> addWorkExperience(
+      WorkExperienceModel experience) async {
     final response = await supabase
         .from('work_experiences')
         .insert(experience.toJson())
         .select()
         .single();
-    
+
     return WorkExperienceModel.fromJson(response);
   }
 
@@ -159,18 +149,17 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
 
   @override
   Future<void> deleteWorkExperience(String id) async {
-    await supabase
-        .from('work_experiences')
-        .delete()
-        .eq('id', id);
+    await supabase.from('work_experiences').delete().eq('id', id);
   }
 
   @override
-  Future<CourseModel> addCourse(CourseModel course, String? localFilePath) async {
+  Future<CourseModel> addCourse(
+      CourseModel course, String? localFilePath) async {
     String? certificateUrl = course.certificateUrl;
 
     if (localFilePath != null) {
-      certificateUrl = await _uploadCertificate(course.profileId, localFilePath);
+      certificateUrl =
+          await _uploadCertificate(course.profileId, localFilePath);
     }
 
     final courseData = course.toJson();
@@ -178,11 +167,8 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
       courseData['certificate_url'] = certificateUrl;
     }
 
-    final response = await supabase
-        .from('courses')
-        .insert(courseData)
-        .select()
-        .single();
+    final response =
+        await supabase.from('courses').insert(courseData).select().single();
 
     return CourseModel.fromJson(response);
   }
@@ -192,7 +178,8 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
     String? certificateUrl = course.certificateUrl;
 
     if (localFilePath != null) {
-      certificateUrl = await _uploadCertificate(course.profileId, localFilePath);
+      certificateUrl =
+          await _uploadCertificate(course.profileId, localFilePath);
     }
 
     final courseData = course.toJson();
@@ -200,52 +187,46 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
       courseData['certificate_url'] = certificateUrl;
     }
 
-    await supabase
-        .from('courses')
-        .update(courseData)
-        .eq('id', course.id);
+    await supabase.from('courses').update(courseData).eq('id', course.id);
   }
 
   @override
   Future<void> deleteCourse(String id) async {
-    await supabase
-        .from('courses')
-        .delete()
-        .eq('id', id);
+    await supabase.from('courses').delete().eq('id', id);
   }
 
   @override
   Future<List<SectorModel>> getSectors() async {
-    final response = await supabase
-        .from('sectors')
-        .select()
-        .order('name');
-    
+    final response = await supabase.from('sectors').select().order('name');
+
     final list = response as List;
-    return list.map((item) => SectorModel.fromJson(item as Map<String, dynamic>)).toList();
+    return list
+        .map((item) => SectorModel.fromJson(item as Map<String, dynamic>))
+        .toList();
   }
 
   Future<String?> _uploadCertificate(String userId, String filePath) async {
     final file = File(filePath);
-    final fileName = '${DateTime.now().millisecondsSinceEpoch}_${filePath.split('/').last}';
+    final fileName =
+        '${DateTime.now().millisecondsSinceEpoch}_${filePath.split('/').last}';
     final storagePath = '$userId/$fileName';
 
     try {
-      // Upload to 'certificates' bucket (Ensure it is created in Supabase dashboard)
       await supabase.storage.from('certificates').upload(
             storagePath,
             file,
-            fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: false),
+            fileOptions:
+                const sb.FileOptions(cacheControl: '3600', upsert: false),
           );
 
       return supabase.storage.from('certificates').getPublicUrl(storagePath);
     } catch (e) {
-      // Fallback: try default 'documents' bucket
       try {
         await supabase.storage.from('documents').upload(
               storagePath,
               file,
-              fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: false),
+              fileOptions:
+                  const sb.FileOptions(cacheControl: '3600', upsert: false),
             );
         return supabase.storage.from('documents').getPublicUrl(storagePath);
       } catch (_) {
@@ -256,29 +237,32 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
 
   @override
   Future<String> uploadResume(String userId, dynamic fileInput) async {
-    // Padronização do nome do arquivo (1 arquivo por usuário) para sobrescritura (upsert)
-    // Protege o limite de 1GB do Free Tier evitando acúmulo de arquivos órfãos
     final storagePath = '$userId/resume.pdf';
 
     if (fileInput is File) {
       await supabase.storage.from('resumes').upload(
             storagePath,
             fileInput,
-            fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: true),
+            fileOptions:
+                const sb.FileOptions(cacheControl: '3600', upsert: true),
           );
     } else if (fileInput is String) {
       final file = File(fileInput);
       await supabase.storage.from('resumes').upload(
             storagePath,
             file,
-            fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: true),
+            fileOptions:
+                const sb.FileOptions(cacheControl: '3600', upsert: true),
           );
     } else if (fileInput is Uint8List || fileInput is List<int>) {
-      final bytes = fileInput is Uint8List ? fileInput : Uint8List.fromList(fileInput as List<int>);
+      final bytes = fileInput is Uint8List
+          ? fileInput
+          : Uint8List.fromList(fileInput as List<int>);
       await supabase.storage.from('resumes').uploadBinary(
             storagePath,
             bytes,
-            fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: true),
+            fileOptions:
+                const sb.FileOptions(cacheControl: '3600', upsert: true),
           );
     } else {
       try {
@@ -288,25 +272,32 @@ class SupabaseDatasourceImpl implements SupabaseDatasource {
           await supabase.storage.from('resumes').uploadBinary(
                 storagePath,
                 bytes,
-                fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: true),
+                fileOptions:
+                    const sb.FileOptions(cacheControl: '3600', upsert: true),
               );
         } else if (path != null) {
           final file = File(path);
           await supabase.storage.from('resumes').upload(
                 storagePath,
                 file,
-                fileOptions: const sb.FileOptions(cacheControl: '3600', upsert: true),
+                fileOptions:
+                    const sb.FileOptions(cacheControl: '3600', upsert: true),
               );
         } else {
-          throw Exception('Formato de arquivo não compatível para upload no storage.');
+          throw Exception(
+              'Formato de arquivo não compatível para upload no storage.');
         }
       } catch (e) {
-        throw Exception('Falha ao processar arquivo do currículo para envio: $e');
+        throw Exception(
+            'Falha ao processar arquivo do currículo para envio: $e');
       }
     }
 
-    final publicUrl = supabase.storage.from('resumes').getPublicUrl(storagePath);
-    await supabase.from('profiles').update({'resume_url': publicUrl}).eq('id', userId);
+    final publicUrl =
+        supabase.storage.from('resumes').getPublicUrl(storagePath);
+    await supabase
+        .from('profiles')
+        .update({'resume_url': publicUrl}).eq('id', userId);
 
     return publicUrl;
   }

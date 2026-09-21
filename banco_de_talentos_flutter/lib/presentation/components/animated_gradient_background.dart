@@ -7,10 +7,12 @@ class AnimatedGradientBackground extends StatefulWidget {
   const AnimatedGradientBackground({super.key, required this.child});
 
   @override
-  State<AnimatedGradientBackground> createState() => _AnimatedGradientBackgroundState();
+  State<AnimatedGradientBackground> createState() =>
+      _AnimatedGradientBackgroundState();
 }
 
-class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground> with SingleTickerProviderStateMixin {
+class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -31,16 +33,15 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
   @override
   Widget build(BuildContext context) {
     final colors = [
-      Theme.of(context).colorScheme.primary, // #0A4D68
-      const Color(0xFF088395), // Secondary
-      const Color(0xFF05BFDB), // Tertiary
+      Theme.of(context).colorScheme.primary,
+      const Color(0xFF088395),
+      const Color(0xFF05BFDB),
       Theme.of(context).colorScheme.primary,
     ];
 
     return Scaffold(
       body: Stack(
         children: [
-          // Background Base Color
           Container(
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -56,13 +57,16 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
                     child: _buildOrb(colors[1], 300),
                   ),
                   Positioned(
-                    bottom: -150 + 80 * math.cos(_controller.value * 2 * math.pi),
+                    bottom:
+                        -150 + 80 * math.cos(_controller.value * 2 * math.pi),
                     right: -50 + 30 * math.sin(_controller.value * 2 * math.pi),
                     child: _buildOrb(colors[2], 400),
                   ),
                   Positioned(
-                    top: MediaQuery.of(context).size.height * 0.4 + 100 * math.sin(_controller.value * 4 * math.pi),
-                    left: MediaQuery.of(context).size.width * 0.5 + 100 * math.cos(_controller.value * 3 * math.pi),
+                    top: MediaQuery.of(context).size.height * 0.4 +
+                        100 * math.sin(_controller.value * 4 * math.pi),
+                    left: MediaQuery.of(context).size.width * 0.5 +
+                        100 * math.cos(_controller.value * 3 * math.pi),
                     child: _buildOrb(const Color(0x66FFFFFF), 200),
                   ),
                 ],

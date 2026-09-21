@@ -12,7 +12,6 @@ class CustomToast {
     required ToastType type,
     Duration duration = const Duration(seconds: 4),
   }) {
-    // If there is an active toast, dismiss it immediately to avoid stacking
     dismiss();
 
     final overlayState = Overlay.of(context);
@@ -67,7 +66,8 @@ class ToastWidget extends StatefulWidget {
   State<ToastWidget> createState() => _ToastWidgetState();
 }
 
-class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin {
+class _ToastWidgetState extends State<ToastWidget>
+    with TickerProviderStateMixin {
   late AnimationController _slideController;
   late AnimationController _progressController;
   late Animation<Offset> _slideAnimation;
@@ -94,7 +94,6 @@ class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin
       curve: Curves.easeOutBack,
     ));
 
-    // Slide-in, run progress, then auto-dismiss
     _slideController.forward().then((_) {
       if (mounted) {
         _progressController.forward().then((_) {
@@ -130,22 +129,22 @@ class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin
 
     switch (widget.type) {
       case ToastType.success:
-        tintColor = const Color(0xFF10B981); // Emerald Green
+        tintColor = const Color(0xFF10B981);
         icon = Icons.check_circle_rounded;
         title = 'Sucesso';
         break;
       case ToastType.error:
-        tintColor = const Color(0xFFE53E3E); // Error color from DESIGN.md (#E53E3E)
+        tintColor = const Color(0xFFE53E3E);
         icon = Icons.error_rounded;
         title = 'Erro';
         break;
       case ToastType.warning:
-        tintColor = const Color(0xFFF59E0B); // Amber/Yellow
+        tintColor = const Color(0xFFF59E0B);
         icon = Icons.warning_rounded;
         title = 'Aviso';
         break;
       case ToastType.info:
-        tintColor = const Color(0xFF3B82F6); // Blue
+        tintColor = const Color(0xFF3B82F6);
         icon = Icons.info_rounded;
         title = 'Informação';
         break;
@@ -157,9 +156,10 @@ class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin
         opacity: _slideController,
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF1F2937).withOpacity(0.95), // Premium dark gray background
+            color: const Color(0xFF1F2937).withOpacity(0.95),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withOpacity(0.12), width: 1.5),
+            border:
+                Border.all(color: Colors.white.withOpacity(0.12), width: 1.5),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.45),
@@ -176,7 +176,8 @@ class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -215,7 +216,8 @@ class _ToastWidgetState extends State<ToastWidget> with TickerProviderStateMixin
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white38, size: 18),
+                          icon: const Icon(Icons.close,
+                              color: Colors.white38, size: 18),
                           onPressed: _dismiss,
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),

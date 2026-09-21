@@ -5,7 +5,7 @@ class StaggeredEntryAnimation extends StatelessWidget {
   final int index;
   final Duration delay;
   final double verticalOffset;
-  
+
   const StaggeredEntryAnimation({
     super.key,
     required this.child,
@@ -17,17 +17,11 @@ class StaggeredEntryAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      key: key, // Ensures animation restarts if key changes, optional
+      key: key,
       tween: Tween(begin: 0.0, end: 1.0),
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutCubic,
       builder: (context, value, childWidget) {
-        // We add a staggered delay based on the index
-        // Since TweenAnimationBuilder doesn't support 'delay' directly, 
-        // we map the value range. But a simpler way for stagger without heavy controllers
-        // is just waiting to mount or calculating the effective value.
-        // Actually, TweenAnimationBuilder starts immediately. Let's do a trick:
-        // map value [0, 1] considering index.
         return Opacity(
           opacity: value,
           child: Transform.translate(
@@ -41,7 +35,6 @@ class StaggeredEntryAnimation extends StatelessWidget {
   }
 }
 
-// A better way to do true staggered delays without an explicit AnimationController:
 class StaggeredWidget extends StatefulWidget {
   final Widget child;
   final int index;
@@ -58,7 +51,8 @@ class StaggeredWidget extends StatefulWidget {
   State<StaggeredWidget> createState() => _StaggeredWidgetState();
 }
 
-class _StaggeredWidgetState extends State<StaggeredWidget> with SingleTickerProviderStateMixin {
+class _StaggeredWidgetState extends State<StaggeredWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;

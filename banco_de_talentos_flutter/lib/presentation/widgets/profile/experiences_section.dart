@@ -33,7 +33,8 @@ class ExperiencesSection extends StatelessWidget {
             ),
             TextButton.icon(
               icon: const Icon(Icons.add, size: 18, color: Colors.white),
-              label: const Text('Adicionar', style: TextStyle(color: Colors.white)),
+              label: const Text('Adicionar',
+                  style: TextStyle(color: Colors.white)),
               onPressed: onAddPressed,
             ),
           ],
@@ -42,7 +43,10 @@ class ExperiencesSection extends StatelessWidget {
         if (experiences.isEmpty)
           const Text(
             'Nenhuma experiência profissional cadastrada.',
-            style: TextStyle(fontSize: 14, color: Colors.white70, fontStyle: FontStyle.italic),
+            style: TextStyle(
+                fontSize: 14,
+                color: Colors.white70,
+                fontStyle: FontStyle.italic),
           )
         else
           ListView.builder(
@@ -56,7 +60,8 @@ class ExperiencesSection extends StatelessWidget {
               String dateStr = '';
               if (exp.startDate != null) {
                 final startYear = exp.startDate!.year;
-                final endYear = exp.isCurrent ? 'Presente' : (exp.endDate?.year ?? '');
+                final endYear =
+                    exp.isCurrent ? 'Presente' : (exp.endDate?.year ?? '');
                 dateStr = '$startYear — $endYear';
               }
 
@@ -64,7 +69,6 @@ class ExperiencesSection extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Vertical Timeline Line
                     Column(
                       children: [
                         Container(
@@ -86,7 +90,6 @@ class ExperiencesSection extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: 14),
-                    // Content Card
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 24.0),
@@ -107,11 +110,13 @@ class ExperiencesSection extends StatelessWidget {
                                 Row(
                                   children: [
                                     IconButton(
-                                      icon: const Icon(Icons.edit_outlined, size: 16, color: Colors.white70),
+                                      icon: const Icon(Icons.edit_outlined,
+                                          size: 16, color: Colors.white70),
                                       onPressed: () => onEditPressed(exp),
                                     ),
                                     IconButton(
-                                      icon: const Icon(Icons.delete_outline, size: 16, color: Colors.redAccent),
+                                      icon: const Icon(Icons.delete_outline,
+                                          size: 16, color: Colors.redAccent),
                                       onPressed: () => onDeletePressed(exp.id),
                                     ),
                                   ],
@@ -134,7 +139,8 @@ class ExperiencesSection extends StatelessWidget {
                                 color: Colors.white70,
                               ),
                             ),
-                            if (exp.description != null && exp.description!.isNotEmpty) ...[
+                            if (exp.description != null &&
+                                exp.description!.isNotEmpty) ...[
                               const SizedBox(height: 8),
                               Text(
                                 exp.description!,

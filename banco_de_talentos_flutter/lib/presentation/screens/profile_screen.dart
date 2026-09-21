@@ -162,7 +162,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
@@ -233,30 +232,22 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Profile Header Card
                   ProfileHeader(profile: profile),
                   const SizedBox(height: 20),
-
-                  // Availability Status Banner
                   _buildAvailabilityBanner(profile.isAvailable),
                   const SizedBox(height: 24),
-
-                  // Resume Attachment (PDF Upload with 2MB limit protection)
                   ResumeSection(
                     profile: profile,
-                    onUploadPressed: (fileInput) => context.read<ProfileCubit>().uploadResume(fileInput),
+                    onUploadPressed: (fileInput) =>
+                        context.read<ProfileCubit>().uploadResume(fileInput),
                     onViewPressed: (url) => _launchURL(context, url),
                   ),
                   const SizedBox(height: 28),
-
-                  // Sectors / Areas of Interest
                   SectorsSection(
                     profile: profile,
                     onEditPressed: () => _showSectorsDialog(context, profile),
                   ),
                   const SizedBox(height: 28),
-
-                  // Professional Experience Timeline
                   ExperiencesSection(
                     experiences: profile.workExperiences,
                     onAddPressed: () => context.push(
@@ -276,8 +267,6 @@ class ProfileScreen extends StatelessWidget {
                         _confirmDeleteExperience(context, id),
                   ),
                   const SizedBox(height: 28),
-
-                  // Courses and Certifications
                   CoursesSection(
                     courses: profile.courses,
                     onAddPressed: () => context.push(
@@ -297,9 +286,7 @@ class ProfileScreen extends StatelessWidget {
                     onCertificatePressed: (url) => _launchURL(context, url),
                   ),
                   const SizedBox(height: 28),
-
-                  const SizedBox(
-                      height: 80), // bottom tab nav bar height spacing
+                  const SizedBox(height: 80),
                 ],
               ),
             ),

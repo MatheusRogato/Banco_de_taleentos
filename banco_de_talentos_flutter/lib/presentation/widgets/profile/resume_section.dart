@@ -21,7 +21,7 @@ class ResumeSection extends StatelessWidget {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf'],
-        withData: true, // Essencial para Web e garantir leitura dos bytes em dispositivos
+        withData: true,
       );
 
       if (result != null && result.files.isNotEmpty) {
@@ -29,12 +29,12 @@ class ResumeSection extends StatelessWidget {
         final sizeInBytes = file.size;
         final sizeInMb = sizeInBytes / (1024 * 1024);
 
-        // O "Pulo do Gato": Trava no frontend para proteger o Free Tier do Supabase Storage
         if (sizeInMb > 2.0) {
           if (context.mounted) {
             CustomToast.show(
               context,
-              message: 'Erro: O currículo deve ter no máximo 2MB (Arquivo atual: ${sizeInMb.toStringAsFixed(1)} MB).',
+              message:
+                  'Erro: O currículo deve ter no máximo 2MB (Arquivo atual: ${sizeInMb.toStringAsFixed(1)} MB).',
               type: ToastType.error,
             );
           }
@@ -58,7 +58,8 @@ class ResumeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasResume = profile.resumeUrl != null && profile.resumeUrl!.isNotEmpty;
+    final hasResume =
+        profile.resumeUrl != null && profile.resumeUrl!.isNotEmpty;
     final accentGreen = const Color(0xFF10B981);
     final mintGreen = const Color(0xFF6CF8BB);
 
@@ -85,7 +86,10 @@ class ResumeSection extends StatelessWidget {
               ),
               child: const Text(
                 'Máx: 2 MB',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white70),
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white70),
               ),
             ),
           ],
@@ -102,10 +106,14 @@ class ResumeSection extends StatelessWidget {
                 color: Colors.white.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: hasResume ? mintGreen.withOpacity(0.5) : Colors.white.withOpacity(0.2),
+                  color: hasResume
+                      ? mintGreen.withOpacity(0.5)
+                      : Colors.white.withOpacity(0.2),
                 ),
               ),
-              child: hasResume ? _buildUploadedView(context, mintGreen) : _buildEmptyView(context, accentGreen),
+              child: hasResume
+                  ? _buildUploadedView(context, mintGreen)
+                  : _buildEmptyView(context, accentGreen),
             ),
           ),
         ),
@@ -116,11 +124,13 @@ class ResumeSection extends StatelessWidget {
   Widget _buildEmptyView(BuildContext context, Color accentColor) {
     return Column(
       children: [
-        Icon(Icons.post_add_rounded, size: 44, color: Colors.white.withOpacity(0.8)),
+        Icon(Icons.post_add_rounded,
+            size: 44, color: Colors.white.withOpacity(0.8)),
         const SizedBox(height: 12),
         const Text(
           'Nenhum currículo anexado ainda',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         const SizedBox(height: 6),
         const Text(
@@ -132,14 +142,19 @@ class ResumeSection extends StatelessWidget {
         SizedBox(
           height: 48,
           child: ElevatedButton.icon(
-            icon: const Icon(Icons.cloud_upload_outlined, color: Colors.white, size: 20),
+            icon: const Icon(Icons.cloud_upload_outlined,
+                color: Colors.white, size: 20),
             label: const Text(
               'Anexar Currículo PDF',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: accentColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
               elevation: 0,
               padding: const EdgeInsets.symmetric(horizontal: 20),
             ),
@@ -170,14 +185,19 @@ class ResumeSection extends StatelessWidget {
                   const SizedBox(width: 5),
                   Text(
                     'Currículo PDF Ativo',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: tintColor),
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: tintColor),
                   ),
                 ],
               ),
             ),
             TextButton.icon(
-              icon: const Icon(Icons.sync_rounded, size: 16, color: Colors.white70),
-              label: const Text('Substituir', style: TextStyle(fontSize: 12, color: Colors.white70)),
+              icon: const Icon(Icons.sync_rounded,
+                  size: 16, color: Colors.white70),
+              label: const Text('Substituir',
+                  style: TextStyle(fontSize: 12, color: Colors.white70)),
               style: TextButton.styleFrom(
                 minimumSize: const Size(44, 44),
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -195,7 +215,8 @@ class ResumeSection extends StatelessWidget {
                 color: Colors.redAccent.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.picture_as_pdf_rounded, color: Colors.redAccent, size: 28),
+              child: const Icon(Icons.picture_as_pdf_rounded,
+                  color: Colors.redAccent, size: 28),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -204,7 +225,10 @@ class ResumeSection extends StatelessWidget {
                 children: [
                   const Text(
                     'Currículo Profissional do Candidato',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   const SizedBox(height: 3),
                   const Text(
@@ -221,11 +245,15 @@ class ResumeSection extends StatelessWidget {
           width: double.infinity,
           height: 48,
           child: OutlinedButton.icon(
-            icon: const Icon(Icons.visibility_outlined, color: Colors.white, size: 18),
-            label: const Text('Visualizar ou Baixar Currículo', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            icon: const Icon(Icons.visibility_outlined,
+                color: Colors.white, size: 18),
+            label: const Text('Visualizar ou Baixar Currículo',
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Colors.white70, width: 1.5),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
             onPressed: () {
               if (onViewPressed != null && profile.resumeUrl != null) {

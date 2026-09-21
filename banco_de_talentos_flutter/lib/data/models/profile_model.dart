@@ -20,14 +20,14 @@ class ProfileModel extends Profile {
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
-    // Parse nested sectors
     List<SectorModel> parsedSectors = [];
     if (json['profile_sectors'] != null) {
       final list = json['profile_sectors'] as List;
       parsedSectors = list
           .map((item) {
             if (item['sectors'] != null) {
-              return SectorModel.fromJson(item['sectors'] as Map<String, dynamic>);
+              return SectorModel.fromJson(
+                  item['sectors'] as Map<String, dynamic>);
             }
             return null;
           })
@@ -40,16 +40,15 @@ class ProfileModel extends Profile {
           .toList();
     }
 
-    // Parse nested work experiences
     List<WorkExperienceModel> parsedExperiences = [];
     if (json['work_experiences'] != null) {
       final list = json['work_experiences'] as List;
       parsedExperiences = list
-          .map((item) => WorkExperienceModel.fromJson(item as Map<String, dynamic>))
+          .map((item) =>
+              WorkExperienceModel.fromJson(item as Map<String, dynamic>))
           .toList();
     }
 
-    // Parse nested courses
     List<CourseModel> parsedCourses = [];
     if (json['courses'] != null) {
       final list = json['courses'] as List;
@@ -99,9 +98,15 @@ class ProfileModel extends Profile {
       isAvailable: isAvailable ?? this.isAvailable,
       bio: bio ?? this.bio,
       resumeUrl: resumeUrl ?? this.resumeUrl,
-      sectors: sectors != null ? List<SectorModel>.from(sectors) : this.sectors as List<SectorModel>,
-      workExperiences: workExperiences != null ? List<WorkExperienceModel>.from(workExperiences) : this.workExperiences as List<WorkExperienceModel>,
-      courses: courses != null ? List<CourseModel>.from(courses) : this.courses as List<CourseModel>,
+      sectors: sectors != null
+          ? List<SectorModel>.from(sectors)
+          : this.sectors as List<SectorModel>,
+      workExperiences: workExperiences != null
+          ? List<WorkExperienceModel>.from(workExperiences)
+          : this.workExperiences as List<WorkExperienceModel>,
+      courses: courses != null
+          ? List<CourseModel>.from(courses)
+          : this.courses as List<CourseModel>,
     );
   }
 
@@ -116,15 +121,11 @@ class ProfileModel extends Profile {
       'is_available': isAvailable,
       'bio': bio,
       'resume_url': resumeUrl,
-      'sectors': sectors
-          .map((s) => (s as SectorModel).toJson())
-          .toList(),
+      'sectors': sectors.map((s) => (s as SectorModel).toJson()).toList(),
       'work_experiences': workExperiences
           .map((e) => (e as WorkExperienceModel).toJson())
           .toList(),
-      'courses': courses
-          .map((c) => (c as CourseModel).toJson())
-          .toList(),
+      'courses': courses.map((c) => (c as CourseModel).toJson()).toList(),
     };
   }
 }

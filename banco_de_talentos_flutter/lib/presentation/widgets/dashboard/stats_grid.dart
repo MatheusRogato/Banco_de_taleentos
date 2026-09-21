@@ -24,7 +24,7 @@ class StatsGrid extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFF8B5CF6), Color(0xFF3B82F6)], // Vibrant purple to blue
+                colors: [Color(0xFF8B5CF6), Color(0xFF3B82F6)],
               ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
@@ -39,8 +39,7 @@ class StatsGrid extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(Icons.work_outline,
-                    color: Colors.white, size: 28),
+                const Icon(Icons.work_outline, color: Colors.white, size: 28),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,14 +74,14 @@ class StatsGrid extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
+                  border: Border.all(
+                      color: Colors.white.withOpacity(0.2), width: 1.5),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.menu_book,
-                        color: Colors.white, size: 28),
+                    const Icon(Icons.menu_book, color: Colors.white, size: 28),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
