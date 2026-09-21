@@ -225,7 +225,6 @@ class _ToastWidgetState extends State<ToastWidget>
                       ],
                     ),
                   ),
-                  // iFood-style timer progress bar
                   AnimatedBuilder(
                     animation: _progressController,
                     builder: (context, child) {

@@ -27,7 +27,6 @@ class RegisterUseCase implements UseCase<User, RegisterParams> {
 
   @override
   Future<Either<Failure, User>> call(RegisterParams params) async {
-    // A validação completa fica por conta da Presentation e do Regex de validação
     return await repository.signUp(
       email: params.email,
       password: params.password,

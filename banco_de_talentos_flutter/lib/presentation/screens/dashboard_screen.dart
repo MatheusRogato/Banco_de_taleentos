@@ -103,7 +103,6 @@ class DashboardScreen extends StatelessWidget {
             onRefresh: () => context.read<ProfileCubit>().loadProfile(),
             child: CustomScrollView(
               slivers: [
-                // Top AppBar
                 SliverAppBar(
                   floating: true,
                   pinned: true,

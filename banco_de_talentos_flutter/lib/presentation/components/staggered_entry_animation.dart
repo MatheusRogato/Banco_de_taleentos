@@ -76,7 +76,6 @@ class _StaggeredWidgetState extends State<StaggeredWidget>
       CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
     );
 
-    // Staggered start
     Future.delayed(Duration(milliseconds: 100 * widget.index), () {
       if (mounted) {
         _controller.forward();

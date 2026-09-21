@@ -102,7 +102,6 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Nome do Curso
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -114,7 +113,6 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Instituição
                 TextFormField(
                   controller: _institutionController,
                   decoration: InputDecoration(
@@ -126,7 +124,6 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Status Dropdown
                 DropdownButtonFormField<String>(
                   value: _status,
                   decoration: InputDecoration(
@@ -153,7 +150,6 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // File Upload Section
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -208,7 +204,6 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                 ),
                 const SizedBox(height: 36),
 
-                // Submit Button
                 SizedBox(
                   height: 56,
                   child: ElevatedButton(

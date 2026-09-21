@@ -24,15 +24,12 @@ class CpfInputFormatter extends TextInputFormatter {
     int selectionIndex = newValue.selection.end;
     int addedCharacters = formattedString.length - text.length;
 
-    // Only move cursor to end if they are typing at the end of the string
     if (oldValue.text.length < newValue.text.length &&
         newValue.selection.end == newValue.text.length) {
       selectionIndex = formattedString.length;
     } else {
-      // Very basic calculation for middle-edits
       selectionIndex = newValue.selection.end +
           (formattedString.length - newValue.text.length);
-      // Ensure it doesn't go out of bounds
       if (selectionIndex > formattedString.length) {
         selectionIndex = formattedString.length;
       } else if (selectionIndex < 0) {

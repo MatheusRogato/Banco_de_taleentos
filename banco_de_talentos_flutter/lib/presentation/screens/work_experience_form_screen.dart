@@ -57,7 +57,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
     if (picked != null && picked != _startDate) {
       setState(() {
         _startDate = picked;
-        // Reset end date if it is before start date
         if (_endDate != null && _endDate!.isBefore(_startDate!)) {
           _endDate = null;
         }
@@ -145,7 +144,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Cargo input
                 TextFormField(
                   controller: _jobTitleController,
                   decoration: InputDecoration(
@@ -157,7 +155,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Empresa input
                 TextFormField(
                   controller: _companyController,
                   decoration: InputDecoration(
@@ -169,7 +166,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Trabalho atual checkbox
                 CheckboxListTile(
                   title: const Text('Trabalho atual'),
                   value: _isCurrent,
@@ -186,10 +182,8 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Datas Row
                 Row(
                   children: [
-                    // Start Date Button
                     Expanded(
                       child: OutlinedButton.icon(
                         icon: const Icon(Icons.calendar_today, size: 16),
@@ -206,7 +200,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    // End Date Button
                     Expanded(
                       child: OutlinedButton.icon(
                         icon: const Icon(Icons.calendar_today, size: 16),
@@ -228,7 +221,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Descrição input
                 TextFormField(
                   controller: _descriptionController,
                   maxLines: 4,
@@ -240,7 +232,6 @@ class _WorkExperienceFormScreenState extends State<WorkExperienceFormScreen> {
                 ),
                 const SizedBox(height: 36),
 
-                // Submit Button
                 SizedBox(
                   height: 56,
                   child: ElevatedButton(

@@ -60,7 +60,6 @@ class ProfileCubit extends Cubit<ProfileState> {
       final result = await _updateProfileAvailabilityUseCase(isAvailable);
       result.fold(
         (failure) {
-          // Revert on failure
           emit(ProfileLoaded(currentState.profile));
           emit(ProfileError(failure.message));
         },

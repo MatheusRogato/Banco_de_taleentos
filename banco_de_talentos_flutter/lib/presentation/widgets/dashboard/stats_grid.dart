@@ -15,7 +15,6 @@ class StatsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Card 1
         Expanded(
           child: Container(
             height: 120,
@@ -62,7 +61,6 @@ class StatsGrid extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        // Card 2
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),

@@ -63,7 +63,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     try {
       await datasource.updateProfileAvailability(userId, isAvailable);
-      // Update local cache if possible
       final cachedProfile = await localDatasource.getLastProfile();
       if (cachedProfile != null) {
         await localDatasource

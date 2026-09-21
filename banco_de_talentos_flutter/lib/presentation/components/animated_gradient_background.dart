@@ -45,7 +45,6 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
           Container(
             color: Theme.of(context).colorScheme.primary,
           ),
-          // Animated Orbs
           AnimatedBuilder(
             animation: _controller,
             builder: (context, _) {
@@ -73,7 +72,6 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
               );
             },
           ),
-          // Blur Layer (Glass effect over the orbs)
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -88,7 +86,6 @@ class _AnimatedGradientBackgroundState extends State<AnimatedGradientBackground>
               ),
             ),
           ),
-          // Main Content
           SafeArea(
             child: widget.child,
           ),

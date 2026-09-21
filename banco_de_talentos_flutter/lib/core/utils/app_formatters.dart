@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 
 class AppFormatters {
-  // Evita a instanciação da classe utilitária
   AppFormatters._();
 
   static final TextInputFormatter cpf = _CpfInputFormatter();
