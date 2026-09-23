@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 
 echo "API_URL=$API_URL" > .env
 echo "API_KEY=$API_KEY" >> .env
