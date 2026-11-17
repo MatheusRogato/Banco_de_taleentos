@@ -19,5 +19,5 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 
 # 4. Compila para Web
-flutter build web --release
+flutter build web --release --base-href /
 
